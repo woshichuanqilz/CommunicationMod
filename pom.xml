@@ -7,7 +7,7 @@
     <artifactId>CommunicationMod</artifactId>
     <version>1.2.1</version>
     <packaging>jar</packaging>
-    <name>Ori: Communication Mod</name>
+    <name>OriCommunicationMod</name>
     <description>Used to help external programs communicate with Slay the Spire</description>
 
     <properties>
@@ -16,29 +16,31 @@
         <SlayTheSpire.version>11-30-2020</SlayTheSpire.version>
         <ModTheSpire.version>3.18.1</ModTheSpire.version>
         <BaseMod.version>5.27.0</BaseMod.version>
+        <ModPath>${user.home}/.local/share/Steam/steamapps/workshop/content/646570</ModPath>
+        <GamePath>${user.home}/.local/share/Steam/steamapps/common/SlayTheSpire</GamePath>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.megacrit.cardcrawl</groupId>
+           <groupId>com.megacrit.cardcrawl</groupId>
             <artifactId>slaythespire</artifactId>
             <version>${SlayTheSpire.version}</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/../lib/desktop-1.0.jar</systemPath>
+            <systemPath>${GamePath}/desktop-1.0.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.evacipated.cardcrawl</groupId>
             <artifactId>ModTheSpire</artifactId>
             <version>${ModTheSpire.version}</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/../lib/ModTheSpire.jar</systemPath>
+            <systemPath>${ModPath}/1605060445/ModTheSpire.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.evacipated.cardcrawl</groupId>
             <artifactId>BaseMod</artifactId>
             <version>${BaseMod.version}</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/../lib/BaseMod.jar</systemPath>
+            <systemPath>${ModPath}/1605833019/BaseMod.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>

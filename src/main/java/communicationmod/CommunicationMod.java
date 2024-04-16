@@ -25,6 +25,9 @@ import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
+// append file
+import java.io.FileWriter;
+import java.io.IOException;
 
 @SpireInitializer
 public class CommunicationMod implements PostInitializeSubscriber, PostUpdateSubscriber, PostDungeonUpdateSubscriber, PreUpdateSubscriber, OnStateChangeSubscriber {
@@ -242,6 +245,14 @@ public class CommunicationMod implements PostInitializeSubscriber, PostUpdateSub
     private static void sendMessage(String message) {
         if(writeQueue != null && writeThread.isAlive()) {
             writeQueue.add(message);
+            // text append message to ori.log
+//            try (FileWriter fileWriter = new FileWriter("state.log", true)) {
+//                fileWriter.write(message);
+//                fileWriter.write(System.lineSeparator()); // 换行符（可选）
+//            } catch (IOException e) {
+//                System.out.println("An error occurred while appending text to file.");
+//                e.printStackTrace();
+//            }
         }
     }
 
