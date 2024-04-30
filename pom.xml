@@ -90,7 +90,7 @@
                         <phase>package</phase>
                         <configuration>
                             <target>
-                                <copy file="target/CommunicationMod.jar" tofile="/home/lizhe/.local/share/Steam/steamapps/common/SlayTheSpire/mods/CommunicationMod.jar"/>
+                                <copy file="target/CommunicationMod.jar" tofile="/home/lizhe/.local/share/Steam/steamapps/common/SlayTheSpire/mods/OriCommunicationMod.jar"/>
                             </target>
                         </configuration>
                         <goals>

@@ -26,7 +26,7 @@ public class DataWriter implements Runnable {
             try {
                 message = this.queue.take();
                 if (verbose) {
-                    logger.info("Sending message: " + message);
+                    logger.info("Sending message: {}", message);
                 }
                 stream.write(message.getBytes());
                 stream.write('\n');
@@ -35,7 +35,7 @@ public class DataWriter implements Runnable {
                 logger.info("Communications writing thread interrupted.");
                 Thread.currentThread().interrupt();
             } catch (IOException e) {
-                logger.error("Message could not be sent to child process: " + message);
+                logger.error("Message could not be sent to child process: {}", message);
                 e.printStackTrace();
             }
         }
