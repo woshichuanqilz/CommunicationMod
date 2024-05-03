@@ -122,7 +122,7 @@ public class CommunicationMod implements PostInitializeSubscriber, PostUpdateSub
         sendGameState();
     }
 
-    public static void queueCommand(String command) {
+    public static void queueCommand(String command) throws IOException {
         readQueue.add(command);
     }
 
@@ -245,13 +245,12 @@ public class CommunicationMod implements PostInitializeSubscriber, PostUpdateSub
     private static void sendMessage(String message) {
         if(writeQueue != null && writeThread.isAlive()) {
             writeQueue.add(message);
-            // text append message to ori.log
-//            try (FileWriter fileWriter = new FileWriter("state.log", true)) {
-//                fileWriter.write(message);
-//                fileWriter.write(System.lineSeparator()); // 换行符（可选）
+//            try {
+//                FileWriter myWriter = new FileWriter("commands.txt", true);
+//                myWriter.write("write: " + message + "\n");
+//                myWriter.close();
 //            } catch (IOException e) {
-//                System.out.println("An error occurred while appending text to file.");
-//                e.printStackTrace();
+//                throw new RuntimeException(e);
 //            }
         }
     }
@@ -262,7 +261,16 @@ public class CommunicationMod implements PostInitializeSubscriber, PostUpdateSub
 
     private static String readMessage() {
         if(messageAvailable()) {
-            return readQueue.remove();
+            String cmd = readQueue.remove();
+            // write to file
+//            try {
+//                FileWriter myWriter = new FileWriter("commands.txt", true);
+//                myWriter.write("read: " + cmd + "\n");
+//                myWriter.close();
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+            return cmd;
         } else {
             return null;
         }
