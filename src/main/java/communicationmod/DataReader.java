@@ -3,6 +3,7 @@ package communicationmod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.BlockingQueue;
@@ -37,7 +38,15 @@ public class DataReader implements Runnable{
                     if (verbose) {
                         logger.info("Received message: " + inputBuffer.toString());
                     }
-                    queue.put(inputBuffer.toString());
+                    String cmd = inputBuffer.toString();
+                    queue.put(cmd);
+                    try {
+                        FileWriter myWriter = new FileWriter("commands.txt", true);
+                        myWriter.write("AddToReadQueueCmdl: " + cmd + "\n");
+                        myWriter.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             } catch(IOException e){
                 logger.error("Message could not be received from child process. Shutting down reading thread.");

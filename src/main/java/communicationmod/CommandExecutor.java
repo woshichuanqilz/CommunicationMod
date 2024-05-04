@@ -78,6 +78,9 @@ public class CommandExecutor {
             case "wait":
                 executeWaitCommand(tokens);
                 return true;
+//            case "ready":
+//                executeStateCommand();
+//                return true;
 
             default:
                 logger.info("This should never happen.");
@@ -114,6 +117,7 @@ public class CommandExecutor {
             availableCommands.add("wait");
         }
         availableCommands.add("state");
+//        availableCommands.add("ready");
         return availableCommands;
     }
 

@@ -3,6 +3,7 @@ package communicationmod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.concurrent.BlockingQueue;
@@ -25,6 +26,13 @@ public class DataWriter implements Runnable {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 message = this.queue.take();
+                try {
+                    FileWriter myWriter = new FileWriter("commands.txt", true);
+                    myWriter.write("SendWQueue: " + message + "\n");
+                    myWriter.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 if (verbose) {
                     logger.info("Sending message: {}", message);
                 }

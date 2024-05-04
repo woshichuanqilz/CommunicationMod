@@ -77,6 +77,24 @@ public class CommunicationMod implements PostInitializeSubscriber, PostUpdateSub
             e.printStackTrace();
         }
 
+
+        // remove file commands.txt
+        try {
+            File file = new File("commands.txt");
+            if(file.exists()) {
+                boolean deleted = file.delete();
+                if(deleted) {
+                    logger.info("Deleted commands.txt");
+                }
+                else {
+                    logger.info("Failed to delete commands.txt");
+                }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if(getRunOnGameStartOption()) {
             boolean success = startExternalProcess();
         }
@@ -124,6 +142,13 @@ public class CommunicationMod implements PostInitializeSubscriber, PostUpdateSub
 
     public static void queueCommand(String command) throws IOException {
         readQueue.add(command);
+        try {
+            FileWriter myWriter = new FileWriter("commands.txt", true);
+            myWriter.write("AddToReadQueueSocket: " + command + "\n");
+            myWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void receivePostInitialize() {
@@ -245,13 +270,13 @@ public class CommunicationMod implements PostInitializeSubscriber, PostUpdateSub
     private static void sendMessage(String message) {
         if(writeQueue != null && writeThread.isAlive()) {
             writeQueue.add(message);
-//            try {
-//                FileWriter myWriter = new FileWriter("commands.txt", true);
-//                myWriter.write("write: " + message + "\n");
-//                myWriter.close();
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
+            try {
+                FileWriter myWriter = new FileWriter("commands.txt", true);
+                myWriter.write("AddToWQueue: " + message + "\n");
+                myWriter.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -263,13 +288,13 @@ public class CommunicationMod implements PostInitializeSubscriber, PostUpdateSub
         if(messageAvailable()) {
             String cmd = readQueue.remove();
             // write to file
-//            try {
-//                FileWriter myWriter = new FileWriter("commands.txt", true);
-//                myWriter.write("read: " + cmd + "\n");
-//                myWriter.close();
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
+            try {
+                FileWriter myWriter = new FileWriter("commands.txt", true);
+                myWriter.write("TakeFromRQueue: " + cmd + "\n");
+                myWriter.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             return cmd;
         } else {
             return null;
@@ -278,7 +303,15 @@ public class CommunicationMod implements PostInitializeSubscriber, PostUpdateSub
 
     private static String readMessageBlocking() {
         try {
-            return readQueue.poll(getInitializationTimeoutOption(), TimeUnit.SECONDS);
+            String msg = readQueue.poll(getInitializationTimeoutOption(), TimeUnit.SECONDS);
+            try {
+                FileWriter myWriter = new FileWriter("commands.txt", true);
+                myWriter.write("ReadBlockingCmdl: " + msg + "\n");
+                myWriter.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            return msg;
         } catch (InterruptedException e) {
             throw new RuntimeException("Interrupted while trying to read message from subprocess.");
         }
