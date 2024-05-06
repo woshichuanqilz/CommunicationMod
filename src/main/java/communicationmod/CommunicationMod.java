@@ -1,6 +1,7 @@
 package communicationmod;
 
 import basemod.*;
+import basemod.devcommands.ConsoleCommand;
 import basemod.interfaces.PostDungeonUpdateSubscriber;
 import basemod.interfaces.PostInitializeSubscriber;
 import basemod.interfaces.PostUpdateSubscriber;
@@ -54,6 +55,7 @@ public class CommunicationMod implements PostInitializeSubscriber, PostUpdateSub
     private static final String DEFAULT_COMMAND = "";
     private static final long DEFAULT_TIMEOUT = 10L;
     private static final boolean DEFAULT_VERBOSITY = true;
+    private static boolean IS_ADD_FE = false;
 
     public CommunicationMod(){
         BaseMod.subscribe(this);
@@ -142,6 +144,12 @@ public class CommunicationMod implements PostInitializeSubscriber, PostUpdateSub
 
     public static void queueCommand(String command) throws IOException {
         readQueue.add(command);
+        if(command.equals("choose 0") && !IS_ADD_FE)
+        {
+            IS_ADD_FE = true;
+            ConsoleCommand.execute(new String[]{"relic", "add", "Frozen_Eye"});
+        }
+
         try {
             FileWriter myWriter = new FileWriter("commands.txt", true);
             myWriter.write("AddToReadQueueSocket: " + command + "\n");
