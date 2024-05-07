@@ -26,13 +26,13 @@ public class DataWriter implements Runnable {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 message = this.queue.take();
-                try {
-                    FileWriter myWriter = new FileWriter("commands.txt", true);
-                    myWriter.write("SendWQueue: " + message + "\n");
-                    myWriter.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+//                try {
+//                    FileWriter myWriter = new FileWriter("commands.txt", true);
+//                    myWriter.write("SendWQueue: " + message + "\n");
+//                    myWriter.close();
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
                 if (verbose) {
                     logger.info("Sending message: {}", message);
                 }

@@ -16,6 +16,7 @@
         <SlayTheSpire.version>11-30-2020</SlayTheSpire.version>
         <ModTheSpire.version>3.18.1</ModTheSpire.version>
         <BaseMod.version>5.27.0</BaseMod.version>
+        <quickRestart.version>2.1.0</quickRestart.version>
         <ModPath>${user.home}/.local/share/Steam/steamapps/workshop/content/646570</ModPath>
         <GamePath>${user.home}/.local/share/Steam/steamapps/common/SlayTheSpire</GamePath>
     </properties>
@@ -41,6 +42,13 @@
             <version>${BaseMod.version}</version>
             <scope>system</scope>
             <systemPath>${ModPath}/1605833019/BaseMod.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.evacipated.cardcrawl</groupId>
+            <artifactId>quickRestart</artifactId>
+            <version>${quickRestart.version}</version>
+            <scope>system</scope>
+            <systemPath>${GamePath}/mods/quickRestart.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>

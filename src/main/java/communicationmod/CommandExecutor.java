@@ -25,6 +25,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import quickRestart.*;
 
 public class CommandExecutor {
 
@@ -78,6 +79,8 @@ public class CommandExecutor {
             case "wait":
                 executeWaitCommand(tokens);
                 return true;
+            case "restart_battle":
+                QuickRestart.setRestart();
 //            case "ready":
 //                executeStateCommand();
 //                return true;
@@ -92,6 +95,8 @@ public class CommandExecutor {
         ArrayList<String> availableCommands = new ArrayList<>();
         if (isPlayCommandAvailable()) {
             availableCommands.add("play");
+            // restart battle
+            availableCommands.add("restart_battle");
         }
         if (isChooseCommandAvailable()) {
             availableCommands.add("choose");

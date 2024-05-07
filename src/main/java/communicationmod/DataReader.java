@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.BlockingQueue;
+import quickRestart.*;
 
 public class DataReader implements Runnable{
 
@@ -40,13 +41,16 @@ public class DataReader implements Runnable{
                     }
                     String cmd = inputBuffer.toString();
                     queue.put(cmd);
-                    try {
-                        FileWriter myWriter = new FileWriter("commands.txt", true);
-                        myWriter.write("AddToReadQueueCmdl: " + cmd + "\n");
-                        myWriter.close();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                    if(cmd.equals("restart_battle")){
+                        QuickRestart.setRestart();
                     }
+//                    try {
+//                        FileWriter myWriter = new FileWriter("commands.txt", true);
+//                        myWriter.write("AddToReadQueueCmdl: " + cmd + "\n");
+//                        myWriter.close();
+//                    } catch (IOException e) {
+//                        throw new RuntimeException(e);
+//                    }
                 }
             } catch(IOException e){
                 logger.error("Message could not be received from child process. Shutting down reading thread.");
