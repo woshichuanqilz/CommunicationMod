@@ -579,6 +579,8 @@ public class GameStateConverter {
 
                     json_node.put("parents", json_parents);
                     json_node.put("children", json_children);
+                    json_node.put("hasEmeraldKey", node.hasEmeraldKey);
+                    json_node.put("phrase", node.room.phase);
                     jsonMap.add(json_node);
                 }
             }

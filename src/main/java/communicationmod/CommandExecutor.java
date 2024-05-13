@@ -81,6 +81,12 @@ public class CommandExecutor {
                 return true;
             case "restart_battle":
                 QuickRestart.setRestart();
+                return true;
+            case "resume":
+                if(CardCrawlGame.mainMenuScreen.buttons.size() == 8){
+                    CardCrawlGame.mainMenuScreen.buttons.get(7).hb.clicked = true;
+                }
+                return true;
 //            case "ready":
 //                executeStateCommand();
 //                return true;
@@ -122,6 +128,7 @@ public class CommandExecutor {
             availableCommands.add("wait");
         }
         availableCommands.add("state");
+        availableCommands.add("resume");
 //        availableCommands.add("ready");
         return availableCommands;
     }
