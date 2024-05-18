@@ -135,6 +135,9 @@ public class CommunicationMod implements PostInitializeSubscriber, PostUpdateSub
         onStateChangeSubscribers.add(sub);
     }
 
+    // unsubscribe
+    public static void unsubscribe(OnStateChangeSubscriber sub) { onStateChangeSubscribers.remove(sub); }
+
     public static void publishOnGameStateChange() {
         for(OnStateChangeSubscriber sub : onStateChangeSubscribers) {
             sub.receiveOnStateChange();
