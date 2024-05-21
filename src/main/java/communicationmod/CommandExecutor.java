@@ -3,6 +3,7 @@ import basemod.devcommands.ConsoleCommand;
 
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.Gdx;
+import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardQueueItem;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -91,7 +92,8 @@ public class CommandExecutor {
                 return true;
             case "test_mode_get_intent":
                 AbstractDungeon.player.powers.add(new BarricadePower(AbstractDungeon.player));
-                AbstractDungeon.player.currentBlock = 999;
+                AbstractDungeon.actionManager.addToBottom(new GainBlockAction(AbstractDungeon.player,
+                        AbstractDungeon.player, 999));
                 return true;
             default:
                 logger.info("This should never happen.");
