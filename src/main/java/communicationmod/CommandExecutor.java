@@ -1,4 +1,5 @@
 package communicationmod;
+import basemod.devcommands.ConsoleCommand;
 
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.Gdx;
@@ -17,6 +18,7 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.potions.PotionSlot;
+import com.megacrit.cardcrawl.powers.BarricadePower;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.*;
@@ -87,10 +89,10 @@ public class CommandExecutor {
                     CardCrawlGame.mainMenuScreen.buttons.get(7).hb.clicked = true;
                 }
                 return true;
-//            case "ready":
-//                executeStateCommand();
-//                return true;
-
+            case "test_mode_get_intent":
+                AbstractDungeon.player.powers.add(new BarricadePower(AbstractDungeon.player));
+                AbstractDungeon.player.currentBlock = 999;
+                return true;
             default:
                 logger.info("This should never happen.");
                 throw new InvalidCommandException("Command not recognized.");
@@ -128,8 +130,9 @@ public class CommandExecutor {
             availableCommands.add("wait");
         }
         availableCommands.add("state");
+        // ori add custom command
         availableCommands.add("resume");
-//        availableCommands.add("ready");
+        availableCommands.add("test_mode_get_intent");
         return availableCommands;
     }
 
