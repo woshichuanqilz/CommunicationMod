@@ -1,9 +1,14 @@
 package communicationmod;
+// ori import
 import basemod.devcommands.ConsoleCommand;
+import com.megacrit.cardcrawl.actions.common.GainBlockAction;
+import com.megacrit.cardcrawl.dungeons.Exordium;
+import org.apache.commons.beanutils.BeanUtils;
+import com.megacrit.cardcrawl.characters.Ironclad;
+import communicationmod.person;
 
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.Gdx;
-import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardQueueItem;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -27,6 +32,7 @@ import communicationmod.patches.InputActionPatch;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.Period;
 import java.util.ArrayList;
 import quickRestart.*;
 
@@ -91,9 +97,36 @@ public class CommandExecutor {
                 }
                 return true;
             case "test_mode_get_intent":
-                AbstractDungeon.player.powers.add(new BarricadePower(AbstractDungeon.player));
-                AbstractDungeon.actionManager.addToBottom(new GainBlockAction(AbstractDungeon.player,
-                        AbstractDungeon.player, 999));
+//                AbstractDungeon.player.powers.add(new BarricadePower(AbstractDungeon.player));
+//                AbstractDungeon.actionManager.addToBottom(new GainBlockAction(AbstractDungeon.player,
+//                        AbstractDungeon.player, 999));
+                // CardCrawlGame.dungeon convert to Exordium
+//                Exordium exordium = (Exordium) CardCrawlGame.dungeon;
+//                person p1 = new person("zhangsan", 18);
+//                person p2 = new person("lisi", 20);
+//                try {
+//                    BeanUtils.copyProperties(p1, p2);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+                // deep copy AbstractDungeon.aiRng this worked.
+                Random aiRng_copy = AbstractDungeon.aiRng.copy();
+                try {
+                    BeanUtils.copyProperties(aiRng_copy, AbstractDungeon.aiRng);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // create empty list
+//                ArrayList<String> retVal = new ArrayList<>();
+//                Exordium exordium_copy = new Exordium(AbstractDungeon.player, retVal);
+//                try {
+//                    BeanUtils.copyProperties(exordium_copy, exordium);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+
+
                 return true;
             default:
                 logger.info("This should never happen.");
